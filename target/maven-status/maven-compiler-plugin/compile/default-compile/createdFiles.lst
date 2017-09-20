@@ -1,0 +1,11 @@
+com/zhoulin/fileinfoserver/FileInfoServerApplication.class
+com/zhoulin/fileinfoserver/domain/File.class
+com/zhoulin/fileinfoserver/service/impl/FileServiceImpl.class
+com/zhoulin/fileinfoserver/config/FileInfoServerConfig.class
+com/zhoulin/fileinfoserver/controller/FileController.class
+com/zhoulin/fileinfoserver/respository/FileRepository.class
+com/zhoulin/fileinfoserver/service/FileService.class
+com/zhoulin/fileinfoserver/VO/ResultVO.class
+com/zhoulin/fileinfoserver/controller/admin/FileController.class
+com/zhoulin/fileinfoserver/controller/admin/VueController.class
+com/zhoulin/fileinfoserver/VO/FileVO.class

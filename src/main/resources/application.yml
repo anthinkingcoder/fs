@@ -1,0 +1,22 @@
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/file_server
+  thymeleaf:
+    cache: false
+    mode: HTLM5
+  http:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+server:
+  port: 8081
+
+url:
+  uploadUrl: http://116.196.123.97:8081
+
+
+
+
+
