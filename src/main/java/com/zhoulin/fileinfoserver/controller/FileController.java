@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Slf4j
@@ -23,7 +26,6 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
-
 
     @Autowired
     private FileInfoServerConfig fileInfoServerConfig;
@@ -37,7 +39,7 @@ public class FileController {
             fileInfo = new File(file.getOriginalFilename(),
                     DigestUtils.md5DigestAsHex(file.getInputStream()), file.getBytes(), file.getContentType(), file.getSize());
             fileInfo = fileService.saveOne(fileInfo);
-            fileInfo.setPath(fileInfoServerConfig.getUploadUrl() + "/file/upload/" + fileInfo.getId());
+            fileInfo.setPath(fileInfoServerConfig.getUploadUrl() + "/view/" + fileInfo.getId());
             return ResponseEntity.ok(fileInfo.getPath());
         } catch (IOException e) {
             log.error(e.getMessage());
@@ -46,14 +48,15 @@ public class FileController {
     }
 
     @GetMapping("/view/{id}")
-    public ResponseEntity preview(@PathVariable("id") String id) {
+    public ResponseEntity preview(@PathVariable("id") String id) throws UnsupportedEncodingException {
         File file = fileService.findOne(id);
         if (file != null) {
             return ResponseEntity
                     .ok()
                     .header(HttpHeaders.CONTENT_TYPE, file.getContentType())
                     .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(file.getSize()))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "fileName=\"" + file.getName() + "\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"" + URLEncoder.encode(file.getName()) + "\";" + "filename*=UTF-8' '" + URLEncoder.encode(file.getName()))
 //                    .header(HttpHeaders.CONTENT_DISPOSITION,"attachment")
                     .body(file.getContent());
         } else {
