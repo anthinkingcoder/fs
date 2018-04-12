@@ -1,2 +1,2 @@
 #fs
-已配置ueditor
+已配置ueditor,captcha
